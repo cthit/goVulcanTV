@@ -1,24 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import {
+  AppBar,
+  Button,
+  IconButton,
+  Paper,
+  Typography,
+} from "@material-ui/core";
+import { Toolbar } from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
+import CurrentlyPlaying from "./components/currently-playing/CurrentlyPlaying";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppBar position="static" className="App-header">
+        <Toolbar>
+          <Typography variant="h6" color="inherit">
+            goVulcanTV Admin
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <div
+        style={{
+          flex: 1,
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "column",
+          marginLeft: "100px",
+          marginRight: "100px",
+          marginTop: "20px",
+        }}
+      >
+        <CurrentlyPlaying />
+      </div>
     </div>
   );
 }
