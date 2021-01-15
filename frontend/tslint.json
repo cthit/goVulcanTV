@@ -1,19 +1,13 @@
 {
     "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended",
-        "tslint-config-prettier"
-    ],
+    "extends": ["tslint:recommended", "tslint-config-prettier"],
     "rules": {
-        "indent": [
-            true,
-            "spaces",
-            4
-        ],
+        "indent": [true, "spaces", 4],
         "trailing-comma": false,
         "object-literal-sort-keys": false,
         "no-console": false,
         "no-require-imports": false,
-        "quotemark": true
+        "quotemark": true,
+        "no-unused-variable": true
     }
 }

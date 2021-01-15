@@ -1,14 +1,6 @@
 import * as React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import {
-    AppBar,
-    Button,
-    IconButton,
-    Link,
-    Paper,
-    Typography,
-} from "@material-ui/core";
+import { AppBar, Typography } from "@material-ui/core";
 import { Toolbar } from "@material-ui/core";
 import CurrentlyPlaying from "./components/currently-playing/CurrentlyPlaying";
 import VideoTable from "./components/video-table/VideoTable";
@@ -21,7 +13,7 @@ function App() {
             <AppBar position="static" className="header">
                 <Toolbar>
                     <Typography variant="h6" color="inherit">
-                        goVulcanTV Admin
+                        📺goVulcanTV Admin
                     </Typography>
                 </Toolbar>
             </AppBar>
