@@ -1,40 +1,56 @@
 .header {
-  background-color: #bb86fc;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
+    background-color: #bb86fc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
 }
 
 .center-box {
-  flex: 1;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  margin-left: 100px;
-  margin-right: 100px;
+    flex: 1;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+    margin-right: 100px;
+}
 
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+}
+
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
 }
 
 .center-box > * {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
 .currently-playing {
-  max-width: 480px;
-  flex: 1;
+    max-width: 480px;
+    display: inline;
 }
 
 :root {
-  background-color: #121212;
+    background-color: #121212;
+    min-height: 100%;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

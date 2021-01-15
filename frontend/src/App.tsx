@@ -5,12 +5,15 @@ import {
     AppBar,
     Button,
     IconButton,
+    Link,
     Paper,
     Typography,
 } from "@material-ui/core";
 import { Toolbar } from "@material-ui/core";
 import CurrentlyPlaying from "./components/currently-playing/CurrentlyPlaying";
 import VideoTable from "./components/video-table/VideoTable";
+import packageJson from "../package.json";
+import Footer from "./components/footer/Footer";
 
 function App() {
     return (
@@ -26,6 +29,7 @@ function App() {
                 <CurrentlyPlaying />
                 <VideoTable />
             </div>
+            <Footer version={packageJson.version} />
         </div>
     );
 }
