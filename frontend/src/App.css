@@ -7,6 +7,20 @@
   color: white;
 }
 
+.center-box {
+  flex: 1;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+  margin-right: 100px;
+
+}
+
+.center-box > * {
+  margin-top: 30px;
+}
+
 .currently-playing {
   max-width: 480px;
   flex: 1;
