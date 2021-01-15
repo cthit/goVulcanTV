@@ -3,7 +3,7 @@ import React from "react";
 
 const Footer = ({ version }: { version: any }) => {
     return (
-        <div>
+        <div style={{ marginTop: "20px" }}>
             <Typography
                 variant="body2"
                 align="center"
