@@ -11,6 +11,7 @@ import {
     TableFooter,
     TablePagination,
     TableRow,
+    Typography,
 } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
@@ -47,9 +48,11 @@ const rows = [
 const useStyles = makeStyles({
     removeAllButtonContainer: {
         display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-end",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
         margin: "10px",
+        minWidth: "265px",
     },
 });
 
@@ -97,6 +100,7 @@ const VideoTable = () => {
     return (
         <Paper>
             <div className={classes.removeAllButtonContainer}>
+                <Typography>Videos</Typography>
                 <RemoveSelectedButton
                     selected={selected}
                     setSelected={setSelected}
@@ -118,6 +122,7 @@ const VideoTable = () => {
                             </TableCell>
                             {columns.map(col => (
                                 <TableCell
+                                    key={col.headerName}
                                     style={{ width: col.width }}
                                     align={col.align}
                                 >
@@ -150,6 +155,7 @@ const VideoTable = () => {
                                     </TableCell>
                                     {columns.map(col => (
                                         <TableCell
+                                            key={col.field}
                                             style={{ width: col.width }}
                                             align={col.align}
                                         >

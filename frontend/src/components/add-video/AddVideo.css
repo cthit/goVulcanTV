@@ -1,0 +1,24 @@
+.add-video-input-container {
+    flex: 1;
+    padding: 5px;
+}
+
+.add-video-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 5px;
+}
+
+.add-video-button-container > div {
+    padding-right: 10px;
+}
+
+.add-video-input {
+    width: 100%;
+}
+
+.add-video {
+    width: 100%;
+}

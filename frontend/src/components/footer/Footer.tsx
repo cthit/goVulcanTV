@@ -3,13 +3,13 @@ import React from "react";
 
 const Footer = ({ version }: { version: any }) => {
     return (
-        <Typography
-            variant="body2"
-            align="center"
-            color="textPrimary"
-            style={{ alignSelf: "end", width: "100%" }}
-        >
-            <p>
+        <div>
+            <Typography
+                variant="body2"
+                align="center"
+                color="textPrimary"
+                style={{ alignSelf: "end", width: "100%" }}
+            >
                 <b>goVulcanTV Admin</b> version {version}
                 <br />
                 Made with ❤️ by{" "}
@@ -21,8 +21,8 @@ const Footer = ({ version }: { version: any }) => {
                 <Link href="https://github.com/swexbe/goVulcanTV">
                     Source on Github
                 </Link>
-            </p>
-        </Typography>
+            </Typography>
+        </div>
     );
 };
 export default Footer;

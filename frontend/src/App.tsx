@@ -6,6 +6,7 @@ import CurrentlyPlaying from "./components/currently-playing/CurrentlyPlaying";
 import VideoTable from "./components/video-table/VideoTable";
 import packageJson from "../package.json";
 import Footer from "./components/footer/Footer";
+import AddVideo from "./components/add-video/AddVideo";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
             </AppBar>
             <div className="center-box">
                 <CurrentlyPlaying />
+                <AddVideo />
                 <VideoTable />
             </div>
             <Footer version={packageJson.version} />
