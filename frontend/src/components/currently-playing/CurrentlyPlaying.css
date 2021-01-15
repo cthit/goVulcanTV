@@ -1,0 +1,9 @@
+.currently-playing {
+    max-width: 480px;
+    display: inline;
+}
+
+.thumbnail {
+    height: 0;
+    padding-top: 56.25%;
+}

@@ -17,6 +17,7 @@ import Paper from "@material-ui/core/Paper";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import TablePaginationActions from "./Pagination";
 import RemoveSelectedButton from "./RemoveSelectedButton";
+import "./VideoTable.css";
 
 const columns: ColDef[] = [
     { field: "id", headerName: "ID", width: 130, align: "left" },

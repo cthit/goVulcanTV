@@ -1,0 +1,10 @@
+.table-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    max-width: 100vw;
+}
+
+.table {
+    min-width: 650px;
+    overflow: hidden;
+}

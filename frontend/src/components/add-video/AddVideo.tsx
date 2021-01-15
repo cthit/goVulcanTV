@@ -25,7 +25,7 @@ const AddVideo = () => {
                         id
                 )
                 .then(res => setVideoTitle(res.data.title))
-                .catch(err => setVideoTitle(""));
+                .catch(() => setVideoTitle(""));
         } else {
             setVideoTitle("");
         }
