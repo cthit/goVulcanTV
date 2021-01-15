@@ -20,7 +20,7 @@ import RemoveSelectedButton from "./RemoveSelectedButton";
 const columns: ColDef[] = [
     { field: "id", headerName: "ID", width: 130, align: "left" },
     { field: "name", headerName: "Name", width: 500, align: "left" },
-    { field: "addedBy", headerName: "Added By", width: 130, align: "right" },
+    { field: "addedBy", headerName: "Added By", width: 130, align: "left" },
 ];
 
 const rows = [
@@ -45,9 +45,6 @@ const rows = [
 ];
 
 const useStyles = makeStyles({
-    table: {
-        minWidth: 500,
-    },
     removeAllButtonContainer: {
         display: "flex",
         flexDirection: "column",
@@ -98,114 +95,116 @@ const VideoTable = () => {
     };
 
     return (
-        <TableContainer component={Paper}>
+        <Paper>
             <div className={classes.removeAllButtonContainer}>
                 <RemoveSelectedButton
                     selected={selected}
                     setSelected={setSelected}
                 />
             </div>
-            <Table
-                className={classes.table}
-                aria-label="custom pagination table"
-            >
-                <TableBody>
-                    <TableRow>
-                        <TableCell padding="checkbox">
-                            <Checkbox
-                                indeterminate={
-                                    selected.size > 0 && selected.size < numRows
-                                }
-                                checked={allSelected}
-                                onChange={handleSelectAll}
-                            />
-                        </TableCell>
-                        {columns.map(col => (
-                            <TableCell
-                                style={{ width: col.width }}
-                                align={col.align}
-                            >
-                                {col.headerName}
+            <div className="table-container">
+                <Table aria-label="custom pagination table">
+                    <TableBody>
+                        <TableRow>
+                            <TableCell padding="checkbox">
+                                <Checkbox
+                                    indeterminate={
+                                        selected.size > 0 &&
+                                        selected.size < numRows
+                                    }
+                                    checked={allSelected}
+                                    onChange={handleSelectAll}
+                                />
                             </TableCell>
-                        ))}
-                        <TableCell align="right"></TableCell>
-                    </TableRow>
-                    {currentRows.map(row => {
-                        const isSelected = selected.has(row.id);
-                        const handleSelect = () => {
-                            if (!isSelected) {
-                                const newSelected = new Set(
-                                    selected.add(row.id)
-                                );
-                                setSelected(newSelected);
-                            } else {
-                                const newSelected = new Set(selected);
-                                newSelected.delete(row.id);
-                                setSelected(newSelected);
-                            }
-                        };
-                        return (
-                            <TableRow key={row.name}>
-                                <TableCell padding="checkbox">
-                                    <Checkbox
-                                        checked={isSelected}
-                                        onChange={handleSelect}
-                                    />
+                            {columns.map(col => (
+                                <TableCell
+                                    style={{ width: col.width }}
+                                    align={col.align}
+                                >
+                                    {col.headerName}
                                 </TableCell>
-                                {columns.map(col => (
-                                    <TableCell
-                                        style={{ width: col.width }}
-                                        align={col.align}
-                                    >
-                                        {
-                                            // @ts-ignore
-                                            row[col.field]
-                                        }
-                                    </TableCell>
-                                ))}
-                                <TableCell align="right">
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        startIcon={<PlayArrowIcon />}
-                                    >
-                                        Play
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        );
-                    })}
-                    {emptyRows > 0 && (
-                        <TableRow style={{ height: 53 * emptyRows }}>
-                            <TableCell colSpan={6} />
+                            ))}
+                            <TableCell align="left"></TableCell>
                         </TableRow>
-                    )}
-                </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <TablePagination
-                            rowsPerPageOptions={[
-                                5,
-                                10,
-                                25,
-                                { label: "All", value: -1 },
-                            ]}
-                            colSpan={3}
-                            count={rows.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            SelectProps={{
-                                inputProps: { "aria-label": "rows per page" },
-                                native: true,
-                            }}
-                            onChangePage={handleChangePage}
-                            onChangeRowsPerPage={handleChangeRowsPerPage}
-                            ActionsComponent={TablePaginationActions}
-                        />
-                    </TableRow>
-                </TableFooter>
-            </Table>
-        </TableContainer>
+                        {currentRows.map(row => {
+                            const isSelected = selected.has(row.id);
+                            const handleSelect = () => {
+                                if (!isSelected) {
+                                    const newSelected = new Set(
+                                        selected.add(row.id)
+                                    );
+                                    setSelected(newSelected);
+                                } else {
+                                    const newSelected = new Set(selected);
+                                    newSelected.delete(row.id);
+                                    setSelected(newSelected);
+                                }
+                            };
+                            return (
+                                <TableRow key={row.name}>
+                                    <TableCell padding="checkbox">
+                                        <Checkbox
+                                            checked={isSelected}
+                                            onChange={handleSelect}
+                                        />
+                                    </TableCell>
+                                    {columns.map(col => (
+                                        <TableCell
+                                            style={{ width: col.width }}
+                                            align={col.align}
+                                        >
+                                            {
+                                                // @ts-ignore
+                                                row[col.field]
+                                            }
+                                        </TableCell>
+                                    ))}
+                                    <TableCell align="left">
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            startIcon={<PlayArrowIcon />}
+                                        >
+                                            Play
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })}
+                        {emptyRows > 0 && (
+                            <TableRow style={{ height: 53 * emptyRows }}>
+                                <TableCell colSpan={6} />
+                            </TableRow>
+                        )}
+                    </TableBody>
+                    <TableFooter>
+                        <TableRow>
+                            <TablePagination
+                                rowsPerPageOptions={[
+                                    5,
+                                    10,
+                                    25,
+                                    { label: "All", value: -1 },
+                                ]}
+                                colSpan={5}
+                                count={rows.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                SelectProps={{
+                                    inputProps: {
+                                        "aria-label": "rows per page",
+                                    },
+                                    native: true,
+                                }}
+                                onChangePage={handleChangePage}
+                                onChangeRowsPerPage={handleChangeRowsPerPage}
+                                ActionsComponent={TablePaginationActions}
+                            />
+                        </TableRow>
+                    </TableFooter>
+                </Table>
+            </div>
+        </Paper>
     );
 };
 

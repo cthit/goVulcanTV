@@ -11,7 +11,7 @@ const CurrentlyPlaying = () => {
         <Card className="currently-playing">
             <CardHeader title="Currently Playing" />
             <CardMedia
-                style={{ width: "480px", height: "360px" }}
+                className="thumbnail"
                 image="https://img.youtube.com/vi/OCHDsn6K8qw/hqdefault.jpg"
                 title="Thumbnail"
             />
