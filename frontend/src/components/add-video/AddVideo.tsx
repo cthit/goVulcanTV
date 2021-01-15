@@ -14,7 +14,7 @@ const AddVideo = () => {
         if (id.length === 0) {
             return false;
         }
-        return !id.match(/[a-zA-Z0-9_-]{11}/);
+        return !videoTitle;
     };
 
     React.useEffect(() => {
