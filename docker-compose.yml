@@ -15,3 +15,13 @@ services:
         restart: always
         ports:
             - 8080:8080
+
+    frontend:
+        image: govulcantv_frontend_dev
+        build:
+            context: ./frontend/
+            dockerfile: dev.Dockerfile
+        ports:
+            - 3000:3000
+        volumes:
+            - ./frontend:/usr/src/govulcantv/frontend
