@@ -3,18 +3,29 @@ package db
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/swexbe/govulcantv/internal/db/commands"
+	"github.com/swexbe/govulcantv/internal/db/common"
 	"github.com/swexbe/govulcantv/internal/db/models"
+	"github.com/swexbe/govulcantv/internal/process"
 	"gorm.io/gorm"
 	"io/ioutil"
 	"log"
-	"github.com/swexbe/govulcantv/internal/db/common"
 	"os"
 )
 
 func setupDB(db *gorm.DB) {
+	resetDB(db)
 	createTables(db)
 	loadDefaults(db)
+}
+
+func resetDB(db *gorm.DB) {
+	reset := os.Getenv("reset_db")
+
+	if reset == "true" {
+		log.Printf("==== RESETTING DB ====")
+		db.Exec("DROP SCHEMA public CASCADE")
+		db.Exec("CREATE SCHEMA public")
+	}
 }
 
 func createTables(db *gorm.DB) {
@@ -54,7 +65,7 @@ func loadDefaults(db *gorm.DB) {
 	}
 
 	for _, pageContent := range defaultDb.PageContents {
-		err := commands.InsertPageContent(&pageContent)
+		err := process.CreatePageContent(&pageContent)
 		if err != nil {
 			log.Printf("Failed to insert default page content %+v to database, err %s\n", pageContent, err)
 		}

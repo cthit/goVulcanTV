@@ -46,4 +46,3 @@ func Init() {
 
 	log.Println("Initialized database connection")
 }
-
