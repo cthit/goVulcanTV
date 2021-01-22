@@ -1,20 +1,16 @@
 package process
 
 import (
+	"github.com/swexbe/govulcantv/internal/common"
 	"github.com/swexbe/govulcantv/internal/db/queries"
 	"math/rand"
 )
 
-type NextVideo struct {
-	Id string `json:"id"`
-	LengthSeconds uint32 `json:"playLengthSeconds"`
-}
-
-func GetNext() *NextVideo {
+func GetNext() *common.Video {
 	enabled := queries.GetEnabled()
 	index := rand.Intn(len(enabled))
 	chosen := enabled[index]
-	return &NextVideo{
+	return &common.Video{
 		Id: chosen.YoutubeID,
 		LengthSeconds: chosen.LengthSeconds,
 	}
