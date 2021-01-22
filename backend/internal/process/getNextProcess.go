@@ -5,9 +5,17 @@ import (
 	"math/rand"
 )
 
-func GetNext() string {
+type NextVideo struct {
+	Id string `json:"id"`
+	LengthSeconds uint32 `json:"playLengthSeconds"`
+}
+
+func GetNext() *NextVideo {
 	enabled := queries.GetEnabled()
 	index := rand.Intn(len(enabled))
 	chosen := enabled[index]
-	return chosen.YoutubeID
+	return &NextVideo{
+		Id: chosen.YoutubeID,
+		LengthSeconds: chosen.LengthSeconds,
+	}
 }
