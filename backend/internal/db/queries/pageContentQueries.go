@@ -19,3 +19,12 @@ func GetPageContentByIdLength(youtubeId string, length uint32) (*models.PageCont
 	tx := db.Where(&query, "YoutubeID", "LengthSeconds").First(&pageContent)
 	return &pageContent, tx.Error
 }
+
+func GetEnabled() []*models.PageContent {
+	db := getDB()
+	var results []*models.PageContent
+	db.Where(&models.PageContent{
+		Enabled: true,
+	}, "enabled").Find(&results)
+	return results
+}

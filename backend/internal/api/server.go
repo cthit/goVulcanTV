@@ -16,6 +16,7 @@ func init() {
 	{
 		api.POST("/pageContent", endpoints.CreatePageContent)
 		api.GET("/pageContent", endpoints.GetPageContents)
+		api.GET("/next", endpoints.GetNext)
 	}
 }
 
