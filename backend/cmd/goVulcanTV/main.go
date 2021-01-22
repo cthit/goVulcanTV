@@ -3,6 +3,7 @@ package main
 
 import (
 	"github.com/joho/godotenv"
+	api "github.com/swexbe/govulcantv/internal/api"
 	"github.com/swexbe/govulcantv/internal/db"
 	"log"
 )
@@ -11,8 +12,8 @@ func main() {
 	log.Println("==== Starting goVulcanTV golang backend =====")
 
 	loadDotEnvFile()
-
 	db.Init()
+	api.Start()
 }
 
 func loadDotEnvFile() {
