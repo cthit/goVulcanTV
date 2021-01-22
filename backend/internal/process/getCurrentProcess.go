@@ -1,10 +1,20 @@
 package process
 
 import (
-	"github.com/swexbe/govulcantv/internal/common"
 	"github.com/swexbe/govulcantv/internal/player"
+	"time"
 )
 
-func GetCurrent() *common.Video {
-	return player.GetCurrent()
+type CurrentVideoResponse struct {
+	*player.CurrentVideo
+	SecondsRemaining int64
+}
+
+func GetCurrent() *CurrentVideoResponse {
+	current := player.GetCurrent()
+	diff := current.StartedAt + int64(current.Video.LengthSeconds) - time.Now().Unix()
+	return &CurrentVideoResponse{
+		CurrentVideo:     current,
+		SecondsRemaining: diff,
+	}
 }

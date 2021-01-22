@@ -8,36 +8,58 @@ import (
 	"time"
 )
 
-var current *common.Video
+type CurrentVideo struct {
+	Video *common.Video
+	StartedAt int64
+}
+
+var current CurrentVideo
+
 var channel chan bool
 var lock sync.Mutex
 
 func Start() {
-	current = GetNext()
+	current = CurrentVideo{
+		Video: GetNext(),
+		StartedAt: time.Now().Unix(),
+	}
 	channel = make(chan bool)
 	go waitForNext()
 }
 
-func GetCurrent() *common.Video {
-	return current
+func GetCurrent() *CurrentVideo {
+	return &current
 }
 
 func ForcePlayVideo(video *common.Video) {
 	channel<-true
 	lock.Lock()
-	current = video
+	current = CurrentVideo{
+		Video: video,
+		StartedAt: time.Now().Unix(),
+	}
 	lock.Unlock()
 	go waitForNext()
 }
 
 func waitForNext() {
 	for {
-		time.Sleep(time.Duration(current.LengthSeconds) * time.Second)
+		// Update startedAt in case any time has gone by since current was last updated
+		lock.Lock()
+		current = CurrentVideo{
+			Video:     current.Video,
+			StartedAt: time.Now().Unix(),
+		}
+		lock.Unlock()
+		time.Sleep(time.Duration(current.Video.LengthSeconds) * time.Second)
 		if v := <- channel; v {
 			return
 		}
 		lock.Lock()
-		current = GetNext()
+		current = CurrentVideo{
+			Video: GetNext(),
+			StartedAt: time.Now().Unix(),
+		}
 		lock.Unlock()
 	}
 }
