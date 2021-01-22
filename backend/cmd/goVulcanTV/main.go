@@ -5,6 +5,7 @@ import (
 	"github.com/joho/godotenv"
 	api "github.com/swexbe/govulcantv/internal/api"
 	"github.com/swexbe/govulcantv/internal/db"
+	"github.com/swexbe/govulcantv/internal/player"
 	"log"
 )
 
@@ -13,6 +14,7 @@ func main() {
 
 	loadDotEnvFile()
 	db.Init()
+	player.Start()
 	api.Start()
 }
 

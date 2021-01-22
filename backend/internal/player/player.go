@@ -1,26 +1,28 @@
 package player
 
 import (
-	"github.com/swexbe/govulcantv/internal/process"
+	"github.com/swexbe/govulcantv/internal/common"
+	"github.com/swexbe/govulcantv/internal/db/queries"
+	"math/rand"
 	"sync"
 	"time"
 )
 
-var current *process.Video
+var current *common.Video
 var channel chan bool
 var lock sync.Mutex
 
 func Start() {
-	current = process.GetNext()
+	current = GetNext()
 	channel = make(chan bool)
 	go waitForNext()
 }
 
-func GetCurrent() *process.Video {
+func GetCurrent() *common.Video {
 	return current
 }
 
-func ForcePlayVideo(video *process.Video) {
+func ForcePlayVideo(video *common.Video) {
 	channel<-true
 	lock.Lock()
 	current = video
@@ -35,7 +37,17 @@ func waitForNext() {
 			return
 		}
 		lock.Lock()
-		current = process.GetNext()
+		current = GetNext()
 		lock.Unlock()
+	}
+}
+
+func GetNext() *common.Video {
+	enabled := queries.GetEnabled()
+	index := rand.Intn(len(enabled))
+	chosen := enabled[index]
+	return &common.Video{
+		Id: chosen.YoutubeID,
+		LengthSeconds: chosen.LengthSeconds,
 	}
 }
