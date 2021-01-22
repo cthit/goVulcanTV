@@ -16,12 +16,14 @@ const theme = createMuiTheme({
 ReactDOM.render(
     <ThemeProvider theme={theme}>
         <Router>
-            <Route path="/admin">
-                <App />
-            </Route>
-            <Route path="/">
-                <FrontPage />
-            </Route>
+            <Switch>
+                <Route path="/admin">
+                    <App />
+                </Route>
+                <Route path="/">
+                    <FrontPage />
+                </Route>
+            </Switch>
         </Router>
     </ThemeProvider>,
     document.getElementById("root")
