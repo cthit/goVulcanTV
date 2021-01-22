@@ -1,6 +1,6 @@
 .add-video-input-container {
     flex: 1;
-    padding: 5px;
+    padding: 10px;
 }
 
 .add-video-button-container {
@@ -8,7 +8,7 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    padding: 5px;
+    padding: 10px;
 }
 
 .add-video-button-container > div {
