@@ -3,6 +3,7 @@ package player
 import (
 	"github.com/swexbe/govulcantv/internal/common"
 	"github.com/swexbe/govulcantv/internal/db/queries"
+	"log"
 	"math/rand"
 	"sync"
 	"time"
@@ -51,15 +52,24 @@ func waitForNext() {
 			StartedAt: time.Now().Unix(),
 		}
 		lock.Unlock()
+		log.Printf("Playing video, going into sleep for %d...\n", current.Video.LengthSeconds)
 		time.Sleep(time.Duration(current.Video.LengthSeconds) * time.Second)
-		if v := <- channel; v {
-			return
+		log.Println("Woke up!")
+		select {
+			case msg := <- channel:
+				log.Printf("Terminating thread...\n")
+				if msg {
+					return
+				}
+			default:
+				break
 		}
 		lock.Lock()
 		current = CurrentVideo{
 			Video: GetNext(),
 			StartedAt: time.Now().Unix(),
 		}
+		log.Printf("Selected video ID %s\n", current.Video.Id)
 		lock.Unlock()
 	}
 }
