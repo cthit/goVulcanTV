@@ -1,5 +1,4 @@
 import axios from "axios";
-import { any } from "bluebird";
 import { getTitleFromID } from "./YoutubeConnection";
 
 export const getVideos = async () => {
@@ -20,4 +19,8 @@ export const getVideos = async () => {
 
 export const addVideo = async (video: any) => {
     return (await axios.post("/api/pageContent", video)).data;
+};
+
+export const getNext = async () => {
+    return await (await axios.get("/api/next")).data.data;
 };

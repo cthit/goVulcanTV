@@ -4,6 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import FrontPage from "./FrontPage";
 
 const theme = createMuiTheme({
     palette: {
@@ -13,7 +15,14 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
     <ThemeProvider theme={theme}>
-        <App />
+        <Router>
+            <Route path="/admin">
+                <App />
+            </Route>
+            <Route path="/">
+                <FrontPage />
+            </Route>
+        </Router>
     </ThemeProvider>,
     document.getElementById("root")
 );

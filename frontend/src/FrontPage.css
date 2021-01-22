@@ -1,0 +1,14 @@
+#root,
+html,
+body,
+#app,
+#app > div {
+    height: 100%;
+}
+
+iframe {
+    border-width: 0px;
+    border-style: inset;
+    border-color: initial;
+    border-image: initial;
+}
