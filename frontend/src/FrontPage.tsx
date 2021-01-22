@@ -23,7 +23,7 @@ export default function FrontPage() {
             }}
         >
             <Iframe
-                url={"https://www.youtube.com/embed/" + video}
+                url={`https://www.youtube.com/embed/${video}?playlist=${video}&autoplay=1&mute=1&hd=0&loop=1&cc_load_policy=1&cc_lang_pref=en`}
                 width="100%"
                 height="100%"
             ></Iframe>
