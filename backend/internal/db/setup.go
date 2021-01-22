@@ -65,7 +65,7 @@ func loadDefaults(db *gorm.DB) {
 	}
 
 	for _, pageContent := range defaultDb.PageContents {
-		err := process.CreatePageContent(&pageContent)
+		_, err := process.CreatePageContent(&pageContent)
 		if err != nil {
 			log.Printf("Failed to insert default page content %+v to database, err %s\n", pageContent, err)
 		}

@@ -14,7 +14,8 @@ func init() {
 
 	api := router.Group("/api")
 	{
-		api.GET("/pageContents", endpoints.GetPageContents)
+		api.POST("/pageContent", endpoints.CreatePageContent)
+		api.GET("/pageContent", endpoints.GetPageContents)
 	}
 }
 
