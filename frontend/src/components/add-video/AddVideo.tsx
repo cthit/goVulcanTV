@@ -3,12 +3,32 @@ import * as React from "react";
 import { useState } from "react";
 import "./AddVideo.css";
 import axios from "axios";
+import { addVideo } from "../../connections/BackendConnection";
 
-const AddVideo = () => {
+const AddVideo = ({ reloadVideos }: { reloadVideos: any }) => {
     const [videoTitle, setVideoTitle] = useState("");
     const [id, setID] = useState("");
     const [addedBy, setAddedBy] = useState("");
     const [description, setDescription] = useState("");
+
+    const handleAddVideo = () => {
+        addVideo({
+            youtubeID: id,
+            addedBy,
+            description,
+            enabled: true,
+            length: 120,
+        }).then(res => {
+            // TODO: Add error handling
+            // TODO: Add success message
+            if (res.success) {
+                setID("");
+                setAddedBy("");
+                setDescription("");
+                reloadVideos();
+            }
+        });
+    };
 
     const idError = () => {
         if (id.length === 0) {
@@ -82,6 +102,7 @@ const AddVideo = () => {
                     variant="contained"
                     color="primary"
                     disabled={!videoTitle}
+                    onClick={handleAddVideo}
                 >
                     Add Video
                 </Button>

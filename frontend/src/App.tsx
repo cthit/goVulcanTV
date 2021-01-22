@@ -7,8 +7,16 @@ import VideoTable from "./components/video-table/VideoTable";
 import packageJson from "../package.json";
 import Footer from "./components/footer/Footer";
 import AddVideo from "./components/add-video/AddVideo";
+import { getVideos } from "./connections/BackendConnection";
 
 function App() {
+    const [videos, setVideos] = React.useState([]);
+    const reloadVideos = () => {
+        getVideos().then((vids: any) => setVideos(vids));
+    };
+    React.useEffect(() => {
+        reloadVideos();
+    }, []);
     return (
         <div className="app">
             <AppBar position="static" className="header">
@@ -20,8 +28,8 @@ function App() {
             </AppBar>
             <div className="center-box">
                 <CurrentlyPlaying />
-                <AddVideo />
-                <VideoTable />
+                <AddVideo reloadVideos={reloadVideos} />
+                <VideoTable videos={videos} />
             </div>
             <Footer version={packageJson.version} />
         </div>

@@ -20,30 +20,9 @@ import RemoveSelectedButton from "./RemoveSelectedButton";
 import "./VideoTable.css";
 
 const columns: ColDef[] = [
-    { field: "id", headerName: "ID", width: 130, align: "left" },
-    { field: "name", headerName: "Name", width: 500, align: "left" },
+    { field: "youtubeID", headerName: "ID", width: 130, align: "left" },
+    { field: "title", headerName: "Name", width: 500, align: "left" },
     { field: "addedBy", headerName: "Added By", width: 130, align: "left" },
-];
-
-const rows = [
-    {
-        id: "99_Abbuf3cQ",
-        name: "Australia's Bushfire-Hunting Satellites",
-        description: "dasdasda",
-        addedBy: "Swexbe",
-    },
-    {
-        id: "zHL9GP_B30E",
-        name: "Illusions of Time",
-        description: "dasdasda",
-        addedBy: "Vidde",
-    },
-    {
-        id: "6w3wr691uss",
-        name: "Earth's Deadliest [Computer] Virus",
-        description: "dasdasda",
-        addedBy: "Santa",
-    },
 ];
 
 const useStyles = makeStyles({
@@ -57,7 +36,9 @@ const useStyles = makeStyles({
     },
 });
 
-const VideoTable = () => {
+const VideoTable = ({ videos }: { videos: any }) => {
+    console.log(videos);
+    const rows = videos;
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [selected, setSelected] = React.useState(new Set<string>());
@@ -94,7 +75,7 @@ const VideoTable = () => {
         if (allSelected) {
             setSelected(new Set());
         } else {
-            setSelected(new Set(currentRows.map(rw => rw.id)));
+            setSelected(new Set(currentRows.map((rw: any) => rw.ID)));
         }
     };
 
@@ -132,22 +113,22 @@ const VideoTable = () => {
                             ))}
                             <TableCell align="left"></TableCell>
                         </TableRow>
-                        {currentRows.map(row => {
-                            const isSelected = selected.has(row.id);
+                        {currentRows.map((row: any) => {
+                            const isSelected = selected.has(row.youtubeID);
                             const handleSelect = () => {
                                 if (!isSelected) {
                                     const newSelected = new Set(
-                                        selected.add(row.id)
+                                        selected.add(row.youtubeID)
                                     );
                                     setSelected(newSelected);
                                 } else {
                                     const newSelected = new Set(selected);
-                                    newSelected.delete(row.id);
+                                    newSelected.delete(row.youtubeID);
                                     setSelected(newSelected);
                                 }
                             };
                             return (
-                                <TableRow key={row.name}>
+                                <TableRow key={row.title}>
                                     <TableCell padding="checkbox">
                                         <Checkbox
                                             checked={isSelected}
