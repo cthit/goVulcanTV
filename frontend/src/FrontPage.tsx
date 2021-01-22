@@ -2,13 +2,17 @@ import Iframe from "react-iframe";
 import * as React from "react";
 import "./FrontPage.css";
 import { useEffect, useRef } from "react";
-import { getNext } from "./connections/BackendConnection";
+import { getCurrent } from "./connections/BackendConnection";
+import useInterval from "./utils/useInterval";
 
 export default function FrontPage() {
     const [video, setVideo] = React.useState("");
-    useEffect(() => {
-        getNext().then(vid => setVideo(vid));
-    }, []);
+    useInterval(() => {
+        getCurrent().then(vid => {
+            console.log(vid);
+            setVideo(vid.id);
+        });
+    }, 1000);
     return (
         <div
             style={{

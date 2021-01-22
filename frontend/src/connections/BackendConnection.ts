@@ -21,6 +21,6 @@ export const addVideo = async (video: any) => {
     return (await axios.post("/api/pageContent", video)).data;
 };
 
-export const getNext = async () => {
-    return await (await axios.get("/api/next")).data.data;
+export const getCurrent = async () => {
+    return await (await axios.get("/api/current")).data.data;
 };
