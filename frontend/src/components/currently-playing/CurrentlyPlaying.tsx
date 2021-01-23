@@ -16,21 +16,16 @@ const CurrentlyPlaying = () => {
     const [title, setTitle] = useState("");
     useInterval(() => {
         getCurrent().then(vid => {
-            console.log(vid.id);
-            setVideo(vid.id);
+            setVideo(vid.Video.id);
         });
     }, 1000);
     useEffect(() => {
         getTitleFromID(video).then(_title => setTitle(_title));
     }, [video]);
+
     return (
         <Card className="currently-playing">
             <CardHeader title="Currently Playing" />
-            {/* <CardMedia
-                className="thumbnail"
-                image="https://img.youtube.com/vi/OCHDsn6K8qw/hqdefault.jpg"
-                title="Thumbnail"
-            /> */}
             <div className="thumbnail">
                 <Iframe
                     className="iframe-player"
@@ -38,7 +33,7 @@ const CurrentlyPlaying = () => {
                 />
             </div>
 
-            <CardContent>
+            <CardContent style={{ maxWidth: "1000px" }}>
                 <Typography variant="h4">{title}</Typography>
             </CardContent>
         </Card>

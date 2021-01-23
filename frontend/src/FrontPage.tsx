@@ -10,7 +10,7 @@ export default function FrontPage() {
     useInterval(() => {
         getCurrent().then(vid => {
             console.log(vid);
-            setVideo(vid.id);
+            setVideo(vid.Video.id);
         });
     }, 1000);
     return (

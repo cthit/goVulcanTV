@@ -22,5 +22,9 @@ export const addVideo = async (video: any) => {
 };
 
 export const getCurrent = async () => {
-    return await (await axios.get("/api/current")).data.data;
+    return (await axios.get("/api/current")).data.data;
+};
+
+export const override = async (id: number) => {
+    return (await axios.put("/api/override/" + id)).data.success;
 };

@@ -18,6 +18,7 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import TablePaginationActions from "./Pagination";
 import RemoveSelectedButton from "./RemoveSelectedButton";
 import "./VideoTable.css";
+import { override } from "../../connections/BackendConnection";
 
 const columns: ColDef[] = [
     { field: "youtubeID", headerName: "ID", width: 130, align: "left" },
@@ -77,6 +78,10 @@ const VideoTable = ({ videos }: { videos: any }) => {
         } else {
             setSelected(new Set(currentRows.map((rw: any) => rw.ID)));
         }
+    };
+
+    const handleOverride = (id: number) => {
+        override(id);
     };
 
     return (
@@ -151,6 +156,10 @@ const VideoTable = ({ videos }: { videos: any }) => {
                                         <Button
                                             variant="contained"
                                             color="primary"
+                                            onClick={() => {
+                                                console.log(row);
+                                                handleOverride(row.id);
+                                            }}
                                             startIcon={<PlayArrowIcon />}
                                         >
                                             Play
