@@ -1,7 +1,7 @@
 package models
 
 type PageContent struct {
-	ID uint64 `gorm:"autoIncrement"`
+	ID uint64 `gorm:"autoIncrement" json:"id"`
 	YoutubeID string `gorm:"not null;uniqueIndex:id_len" json:"youtubeID"`
 	Enabled bool `gorm:"not null" json:"enabled"`
 	Description string `gorm:"not null" json:"description"`

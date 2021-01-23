@@ -28,3 +28,10 @@ func GetEnabled() []*models.PageContent {
 	}, "enabled").Find(&results)
 	return results
 }
+
+func GetPageContentById(id uint64) (*models.PageContent, error) {
+	db := getDB()
+	var pageContent models.PageContent
+	tx := db.First(&pageContent, id)
+	return &pageContent, tx.Error
+}

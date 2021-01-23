@@ -15,16 +15,12 @@ type CurrentVideo struct {
 }
 
 var current CurrentVideo
+var currentLock sync.Mutex
 
-var channel chan bool
-var lock sync.Mutex
+var override *CurrentVideo
+var overrideLock sync.Mutex
 
 func Start() {
-	current = CurrentVideo{
-		Video: GetNext(),
-		StartedAt: time.Now().Unix(),
-	}
-	channel = make(chan bool)
 	go waitForNext()
 }
 
@@ -33,44 +29,37 @@ func GetCurrent() *CurrentVideo {
 }
 
 func ForcePlayVideo(video *common.Video) {
-	channel<-true
-	lock.Lock()
-	current = CurrentVideo{
+	overrideLock.Lock()
+	override = &CurrentVideo{
 		Video: video,
 		StartedAt: time.Now().Unix(),
 	}
-	lock.Unlock()
-	go waitForNext()
+	overrideLock.Unlock()
 }
 
 func waitForNext() {
 	for {
-		// Update startedAt in case any time has gone by since current was last updated
-		lock.Lock()
-		current = CurrentVideo{
-			Video:     current.Video,
-			StartedAt: time.Now().Unix(),
+		if override != nil && override.Video != nil {
+			log.Printf("Override video available, overriding with %s\n", override.Video.Id)
+			// Override the current video with the override video
+			overrideLock.Lock()
+			current = *override
+			current.StartedAt = time.Now().Unix()
+			override = nil
+			overrideLock.Unlock()
+		} else if current.Video == nil || time.Now().Unix() >= current.StartedAt + int64(current.Video.LengthSeconds) {
+			// Video is done or missing, play a new one
+			next := GetNext()
+			currentLock.Lock()
+			current = CurrentVideo{
+				Video: next,
+				StartedAt: time.Now().Unix(),
+			}
+			log.Printf("Selected video ID %s\n", current.Video.Id)
+			currentLock.Unlock()
 		}
-		lock.Unlock()
-		log.Printf("Playing video, going into sleep for %d...\n", current.Video.LengthSeconds)
-		time.Sleep(time.Duration(current.Video.LengthSeconds) * time.Second)
-		log.Println("Woke up!")
-		select {
-			case msg := <- channel:
-				log.Printf("Terminating thread...\n")
-				if msg {
-					return
-				}
-			default:
-				break
-		}
-		lock.Lock()
-		current = CurrentVideo{
-			Video: GetNext(),
-			StartedAt: time.Now().Unix(),
-		}
-		log.Printf("Selected video ID %s\n", current.Video.Id)
-		lock.Unlock()
+
+		time.Sleep(time.Second)
 	}
 }
 
