@@ -52,6 +52,12 @@ const AddVideo = ({ reloadVideos }: { reloadVideos: any }) => {
     }, [id]);
     return (
         <Paper className="add-video">
+            <Typography
+                variant="h5"
+                style={{ paddingTop: "10px", paddingLeft: "10px" }}
+            >
+                Add Video
+            </Typography>
             <form noValidate autoComplete="off">
                 <div
                     style={{

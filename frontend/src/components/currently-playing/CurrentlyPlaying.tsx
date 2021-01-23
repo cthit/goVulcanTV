@@ -34,7 +34,7 @@ const CurrentlyPlaying = () => {
             </div>
 
             <CardContent style={{ maxWidth: "1000px" }}>
-                <Typography variant="h4">{title}</Typography>
+                <Typography variant="h5">{title}</Typography>
             </CardContent>
         </Card>
     );

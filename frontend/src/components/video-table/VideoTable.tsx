@@ -87,7 +87,7 @@ const VideoTable = ({ videos }: { videos: any }) => {
     return (
         <Paper>
             <div className={classes.removeAllButtonContainer}>
-                <Typography>Videos</Typography>
+                <Typography variant="h5">Videos</Typography>
                 <RemoveSelectedButton
                     selected={selected}
                     setSelected={setSelected}
