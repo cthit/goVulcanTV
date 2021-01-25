@@ -5,10 +5,8 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	apiCommon "github.com/swexbe/govulcantv/internal/api/common"
-	"github.com/swexbe/govulcantv/internal/common"
-	"github.com/swexbe/govulcantv/internal/db/queries"
-	"github.com/swexbe/govulcantv/internal/player"
-	"gorm.io/gorm"
+	"github.com/swexbe/govulcantv/internal/process"
+	"github.com/swexbe/govulcantv/internal/vulcanTvErrors"
 	"log"
 	"strconv"
 )
@@ -24,9 +22,9 @@ func OverrideVideo(c *gin.Context) {
 		return
 	}
 
-	pageContent, err := queries.GetPageContentById(id)
+	err = process.OverrideVideo(id)
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
+		if errors.Is(err, vulcanTvErrors.NoSuchPageContent) {
 			c.JSON(404, apiCommon.Response{
 				Success: false,
 				Error: "No such page content",
@@ -41,11 +39,6 @@ func OverrideVideo(c *gin.Context) {
 		})
 		return
 	}
-
-	player.ForcePlayVideo(&common.Video{
-		Id:            pageContent.YoutubeID,
-		LengthSeconds: pageContent.LengthSeconds,
-	})
 
 	c.JSON(200, apiCommon.Response{
 		Success: true,
