@@ -14,12 +14,12 @@ func init() {
 
 	api := router.Group("/api")
 	{
-		api.POST("/pageContent", endpoints.CreatePageContent)
-		api.GET("/pageContent", endpoints.GetPageContents)
-		api.DELETE("/pageContent/:id", endpoints.DeletePageContent)
-		api.GET("/next", endpoints.GetNext)
-		api.GET("/current", endpoints.GetCurrent)
-		api.PUT("/override/:id", endpoints.OverrideVideo)
+		api.POST("/page_contents", endpoints.CreatePageContent)
+		api.GET("/page_contents", endpoints.GetPageContents)
+		api.DELETE("/page_contents/:id", endpoints.DeletePageContent)
+		api.GET("/videos/next", endpoints.GetNext)
+		api.GET("/videos/current", endpoints.GetCurrent)
+		api.PUT("/videos/override/:id", endpoints.OverrideVideo)
 	}
 }
 

@@ -2,7 +2,7 @@ import axios from "axios";
 import { getTitleFromID } from "./YoutubeConnection";
 
 export const getVideos = async () => {
-    const videos: [any] = (await axios.get("/api/pageContent")).data.data;
+    const videos: [any] = (await axios.get("/api/page_contents")).data.data;
     const promises = videos.map((video: any) => {
         return new Promise((resolve, reject) => {
             getTitleFromID(video.youtubeID)
@@ -18,13 +18,13 @@ export const getVideos = async () => {
 };
 
 export const addVideo = async (video: any) => {
-    return (await axios.post("/api/pageContent", video)).data;
+    return (await axios.post("/api/page_contents", video)).data;
 };
 
 export const getCurrent = async () => {
-    return (await axios.get("/api/current")).data.data;
+    return (await axios.get("/api/videos/current")).data.data;
 };
 
 export const override = async (id: number) => {
-    return (await axios.put("/api/override/" + id)).data.success;
+    return (await axios.put("/api/videos/override/" + id)).data.success;
 };
