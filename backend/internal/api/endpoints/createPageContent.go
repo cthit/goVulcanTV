@@ -56,7 +56,7 @@ func CreatePageContent(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, common.Response{
+	c.JSON(201, common.Response{
 		Success: true,
 		Data: CreatePageContentResponse{
 			ID: id,
