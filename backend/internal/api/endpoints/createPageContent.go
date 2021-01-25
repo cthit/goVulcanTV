@@ -42,7 +42,7 @@ func CreatePageContent(c *gin.Context) {
 	if err != nil {
 		log.Printf("Error: failed to create pageContent, err: %s\n", err)
 		if errors.Is(err, vulcanTvErrors.ErrAlreadyExists) {
-			c.JSON(200, common.Response{
+			c.JSON(409, common.Response{
 				Success: false,
 				Error: "This video & length already exists",
 			})
