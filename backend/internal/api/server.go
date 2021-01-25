@@ -16,6 +16,7 @@ func init() {
 	{
 		api.POST("/pageContent", endpoints.CreatePageContent)
 		api.GET("/pageContent", endpoints.GetPageContents)
+		api.DELETE("/pageContent/:id", endpoints.DeletePageContent)
 		api.GET("/next", endpoints.GetNext)
 		api.GET("/current", endpoints.GetCurrent)
 		api.PUT("/override/:id", endpoints.OverrideVideo)

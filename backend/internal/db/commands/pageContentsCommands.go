@@ -9,3 +9,9 @@ func InsertPageContent(pageContent *models.PageContent) (uint64, error) {
 	result := db.Create(pageContent)
 	return pageContent.ID, result.Error
 }
+
+func DeletePageContent(pageContent *models.PageContent) error {
+	db := getDB()
+	tx := db.Delete(pageContent)
+	return tx.Error
+}
