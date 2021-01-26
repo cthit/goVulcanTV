@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/swexbe/govulcantv/internal/api/common"
 	"github.com/swexbe/govulcantv/internal/db/models"
 	"github.com/swexbe/govulcantv/internal/process"
@@ -13,7 +14,7 @@ import (
 )
 
 type CreatePageContentResponse struct {
-	ID uint64 `json:"ID"`
+	ID uuid.UUID `json:"ID"`
 }
 
 func CreatePageContent(c *gin.Context) {

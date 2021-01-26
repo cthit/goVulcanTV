@@ -2,6 +2,7 @@ package process
 
 import (
 	"errors"
+	"github.com/google/uuid"
 	"github.com/swexbe/govulcantv/internal/db/commands"
 	"github.com/swexbe/govulcantv/internal/db/models"
 	"github.com/swexbe/govulcantv/internal/db/queries"
@@ -9,16 +10,16 @@ import (
 	"gorm.io/gorm"
 )
 
-func CreatePageContent(content *models.PageContent) (uint64, error) {
+func CreatePageContent(content *models.PageContent) (uuid.UUID, error) {
 	_, err := queries.GetPageContentByIdLength(content.YoutubeID, content.LengthSeconds)
+	var id uuid.UUID
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			content.ID = 0 // Make sure it's auto-incremented
-			return commands.InsertPageContent(content)
+			id, err = commands.InsertPageContent(content)
 		}
 
-		return 0, err
+		return id, err
 	}
 
-	return 0, vulcanTvErrors.ErrAlreadyExists
+	return id, vulcanTvErrors.ErrAlreadyExists
 }

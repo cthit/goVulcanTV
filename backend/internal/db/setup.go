@@ -14,6 +14,7 @@ import (
 
 func setupDB(db *gorm.DB) {
 	resetDB(db)
+	loadExtensions(db)
 	createTables(db)
 	loadDefaults(db)
 }
@@ -26,6 +27,10 @@ func resetDB(db *gorm.DB) {
 		db.Exec("DROP SCHEMA public CASCADE")
 		db.Exec("CREATE SCHEMA public")
 	}
+}
+
+func loadExtensions(db *gorm.DB) {
+	db.Exec("create extension if not exists \"uuid-ossp\";")
 }
 
 func createTables(db *gorm.DB) {

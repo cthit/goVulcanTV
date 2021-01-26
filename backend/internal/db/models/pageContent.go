@@ -1,7 +1,11 @@
 package models
 
+import (
+	"github.com/google/uuid"
+)
+
 type PageContent struct {
-	ID uint64 `gorm:"autoIncrement" json:"id"`
+	ID uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4()" json:"id"`
 	YoutubeID string `gorm:"not null;uniqueIndex:id_len" json:"youtubeID"`
 	Enabled bool `gorm:"not null" json:"enabled"`
 	Description string `gorm:"not null" json:"description"`
