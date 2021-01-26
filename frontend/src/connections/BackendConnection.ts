@@ -21,6 +21,10 @@ export const addVideo = async (video: any) => {
     return (await axios.post("/api/page_contents", video)).data;
 };
 
+export const deleteVideo = async (id: number) => {
+    return await axios.delete("/api/page_contents/" + id);
+};
+
 export const getCurrent = async () => {
     return (await axios.get("/api/videos/current")).data.data;
 };

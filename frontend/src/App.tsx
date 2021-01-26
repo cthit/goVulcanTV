@@ -29,7 +29,7 @@ function App() {
             <div className="center-box">
                 <CurrentlyPlaying />
                 <AddVideo reloadVideos={reloadVideos} />
-                <VideoTable videos={videos} />
+                <VideoTable videos={videos} reloadVideos={reloadVideos} />
             </div>
             <Footer version={packageJson.version} />
         </div>

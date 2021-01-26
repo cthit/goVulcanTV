@@ -37,12 +37,17 @@ const useStyles = makeStyles({
     },
 });
 
-const VideoTable = ({ videos }: { videos: any }) => {
-    console.log(videos);
+const VideoTable = ({
+    videos,
+    reloadVideos,
+}: {
+    videos: any;
+    reloadVideos: any;
+}) => {
     const rows = videos;
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-    const [selected, setSelected] = React.useState(new Set<string>());
+    const [selected, setSelected] = React.useState(new Set<number>());
     const classes = useStyles();
     const numRows =
         rowsPerPage !== -1
@@ -76,7 +81,7 @@ const VideoTable = ({ videos }: { videos: any }) => {
         if (allSelected) {
             setSelected(new Set());
         } else {
-            setSelected(new Set(currentRows.map((rw: any) => rw.ID)));
+            setSelected(new Set(currentRows.map((rw: any) => rw.id)));
         }
     };
 
@@ -90,7 +95,7 @@ const VideoTable = ({ videos }: { videos: any }) => {
                 <Typography variant="h5">Videos</Typography>
                 <RemoveSelectedButton
                     selected={selected}
-                    setSelected={setSelected}
+                    reloadVideos={reloadVideos}
                 />
             </div>
             <div className="table-container">
@@ -119,16 +124,16 @@ const VideoTable = ({ videos }: { videos: any }) => {
                             <TableCell align="left"></TableCell>
                         </TableRow>
                         {currentRows.map((row: any) => {
-                            const isSelected = selected.has(row.youtubeID);
+                            const isSelected = selected.has(row.id);
                             const handleSelect = () => {
                                 if (!isSelected) {
                                     const newSelected = new Set(
-                                        selected.add(row.youtubeID)
+                                        selected.add(row.id)
                                     );
                                     setSelected(newSelected);
                                 } else {
                                     const newSelected = new Set(selected);
-                                    newSelected.delete(row.youtubeID);
+                                    newSelected.delete(row.id);
                                     setSelected(newSelected);
                                 }
                             };
@@ -157,7 +162,6 @@ const VideoTable = ({ videos }: { videos: any }) => {
                                             variant="contained"
                                             color="primary"
                                             onClick={() => {
-                                                console.log(row);
                                                 handleOverride(row.id);
                                             }}
                                             startIcon={<PlayArrowIcon />}

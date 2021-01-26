@@ -11,13 +11,14 @@ import {
     useMediaQuery,
     useTheme,
 } from "@material-ui/core";
+import { deleteVideo } from "../../connections/BackendConnection";
 
 const RemoveSelectedButton = ({
     selected,
-    setSelected,
+    reloadVideos,
 }: {
-    selected: Set<string>;
-    setSelected: React.Dispatch<React.SetStateAction<Set<string>>>;
+    selected: Set<number>;
+    reloadVideos: any;
 }) => {
     const [open, setOpen] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
@@ -35,6 +36,22 @@ const RemoveSelectedButton = ({
 
     const handleDelete = () => {
         setLoading(true);
+        const promises: Promise<void>[] = [];
+        selected.forEach(sel => {
+            promises.push(
+                new Promise<void>((resolve, reject) =>
+                    deleteVideo(sel)
+                        .then(() => resolve())
+                        .catch(reason => reject(reason))
+                )
+            );
+        });
+
+        Promise.all(promises).then(() => {
+            setLoading(false);
+            setOpen(false);
+            reloadVideos();
+        });
     };
     return (
         <div>
