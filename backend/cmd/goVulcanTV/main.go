@@ -13,9 +13,10 @@ func main() {
 	log.Println("==== Starting goVulcanTV golang backend =====")
 
 	loadDotEnvFile()
+
 	db.Init()
 	player.Start()
-	api.Start()
+	api.Init()
 }
 
 func loadDotEnvFile() {

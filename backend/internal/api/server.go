@@ -9,12 +9,12 @@ import (
 
 var router *gin.Engine
 
-func init() {
+func Init() {
 	log.Println("Initializing GIN webserver")
 	router = gin.Default()
 
-	username := os.Getenv("reset_db")
-	password := os.Getenv("reset_db")
+	username := os.Getenv("admin_user")
+	password := os.Getenv("admin_password")
 
 	if username == "" {
 		username = "digit"
@@ -22,6 +22,8 @@ func init() {
 	if password == "" {
 		password = "password"
 	}
+
+	log.Printf("Admin username: %s, pass: %s\n", username, password)
 
 	api := router.Group("/api")
 	{
@@ -38,9 +40,7 @@ func init() {
 		api.GET("/videos/next", endpoints.GetNext)
 		api.GET("/videos/current", endpoints.GetCurrent)
 	}
-}
 
-func Start() {
 	err := router.Run()
 	if err != nil {
 		log.Fatalf("Failed to start webserver, err: %s\n", err)
