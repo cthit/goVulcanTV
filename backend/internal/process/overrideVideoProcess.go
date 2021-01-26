@@ -2,6 +2,7 @@ package process
 
 import (
 	"errors"
+	"github.com/google/uuid"
 	"github.com/swexbe/govulcantv/internal/common"
 	"github.com/swexbe/govulcantv/internal/db/queries"
 	"github.com/swexbe/govulcantv/internal/player"
@@ -9,7 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func OverrideVideo(pageContentId uint64) error {
+func OverrideVideo(pageContentId uuid.UUID) error {
 	pageContent, err := queries.GetPageContentById(pageContentId)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {

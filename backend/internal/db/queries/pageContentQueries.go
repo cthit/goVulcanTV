@@ -1,6 +1,9 @@
 package queries
 
-import "github.com/swexbe/govulcantv/internal/db/models"
+import (
+	"github.com/google/uuid"
+	"github.com/swexbe/govulcantv/internal/db/models"
+)
 
 func GetPageContents() ([]*models.PageContent, error) {
 	db := getDB()
@@ -29,7 +32,7 @@ func GetEnabled() []*models.PageContent {
 	return results
 }
 
-func GetPageContentById(id uint64) (*models.PageContent, error) {
+func GetPageContentById(id uuid.UUID) (*models.PageContent, error) {
 	db := getDB()
 	var pageContent models.PageContent
 	tx := db.First(&pageContent, id)

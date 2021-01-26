@@ -4,16 +4,16 @@ import (
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	apiCommon "github.com/swexbe/govulcantv/internal/api/common"
 	"github.com/swexbe/govulcantv/internal/process"
 	"github.com/swexbe/govulcantv/internal/vulcanTvErrors"
 	"log"
-	"strconv"
 )
 
 func OverrideVideo(c *gin.Context) {
 	idString := c.Param("id")
-	id, err := strconv.ParseUint(idString, 10, 64)
+	id, err := uuid.Parse(idString)
 	if err != nil {
 		c.JSON(400, apiCommon.Response{
 			Success: false,
