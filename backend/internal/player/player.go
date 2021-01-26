@@ -50,13 +50,18 @@ func waitForNext() {
 		} else if current.Video == nil || time.Now().Unix() >= current.StartedAt + int64(current.Video.LengthSeconds) {
 			// Video is done or missing, play a new one
 			next := GetNext()
-			currentLock.Lock()
-			current = CurrentVideo{
-				Video: next,
-				StartedAt: time.Now().Unix(),
+			if next != nil {
+
+				currentLock.Lock()
+				current = CurrentVideo{
+					Video:     next,
+					StartedAt: time.Now().Unix(),
+				}
+				log.Printf("Selected video ID %s\n", current.Video.Id)
+				currentLock.Unlock()
+			} else {
+				log.Println("No enabled videos found")
 			}
-			log.Printf("Selected video ID %s\n", current.Video.Id)
-			currentLock.Unlock()
 		}
 
 		time.Sleep(time.Second)
@@ -65,6 +70,10 @@ func waitForNext() {
 
 func GetNext() *common.Video {
 	enabled := queries.GetEnabled()
+	if len(enabled) == 0 {
+		return nil
+	}
+
 	index := rand.Intn(len(enabled))
 	chosen := enabled[index]
 	return &common.Video{

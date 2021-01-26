@@ -53,7 +53,8 @@ type DefaultJson struct {
 func loadDefaults(db *gorm.DB) {
 	defaultsFile, err := os.Open("internal/db/defaults.json")
 	if err != nil {
-		log.Fatalf("Failed to load db defaults, err: %s", err)
+		log.Printf("Failed to load db defaults, err: %s\n", err)
+		return
 	}
 
 	defer defaultsFile.Close()
