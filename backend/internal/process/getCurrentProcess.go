@@ -12,9 +12,12 @@ type CurrentVideoResponse struct {
 
 func GetCurrent() *CurrentVideoResponse {
 	current := player.GetCurrent()
-	diff := current.StartedAt + int64(current.Video.LengthSeconds) - time.Now().Unix()
-	return &CurrentVideoResponse{
-		CurrentVideo:     current,
-		SecondsRemaining: diff,
+	if current != nil {
+		diff := current.StartedAt + int64(current.Video.LengthSeconds) - time.Now().Unix()
+		return &CurrentVideoResponse{
+			CurrentVideo:     current,
+			SecondsRemaining: diff,
+		}
 	}
+	return nil
 }
